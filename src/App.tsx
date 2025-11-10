@@ -1,35 +1,77 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import { Game } from "./Game";
+import { GetReady } from "./GetReady";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [name, setName] = useState("");
+  const [gameStarted, setGameStarted] = useState(false);
+  const [getReady, setGetReady] = useState(false);
+  const [gameResults, setGameResults] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    // do something here
+    e.preventDefault();
+    // stop browser refresh
+    setGetReady(true);
+  };
+
+  const handleGameOver = (correctGuesses: number, incorrectGuesses: number) => {
+    console.log(
+      "Game over! Correct guesses:",
+      correctGuesses,
+      "Incorrect guesses:",
+      incorrectGuesses,
+    );
+    setGameStarted(false);
+    setName("");
+    setGameResults(
+      `Game over! Correct guesses: ${correctGuesses}, Incorrect guesses: ${incorrectGuesses}`,
+    );
+  };
+
+  const handleGameReady = () => {
+    setGetReady(false);
+    setGameStarted(true);
+  };
+
+  const handleReset = () => {
+    setGameResults("");
+    setName("");
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <header>N-Back challange</header>
+
+      <section>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter your name"
+            minLength={5}
+            required
+          ></input>
+          <button type="submit">submit</button>
+        </form>
+        {gameStarted && name && (
+          <>
+            <div> the same is started</div>
+            <Game nBack={name} handleGameOver={handleGameOver} />
+          </>
+        )}
+        {getReady && <GetReady handleGameReady={handleGameReady} />}
+        {!gameStarted && gameResults && (
+          <>
+            <div>{gameResults}</div>
+            <button onClick={handleReset}>Reset</button>
+          </>
+        )}
+      </section>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
