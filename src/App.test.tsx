@@ -1,21 +1,5 @@
-// basic. user sees form
-// User pressens name
-// user needs to add name
-// user can start the game
-
-// user sees one letter at the time
-// gmae shows latter for two seconds.
-// see if we can try to get this to work with setInterval
-// Then the error counting etc...
-
-// 2 back challange
-
-// user guesses letter, if correct that letter is stored
-// user guesses incorrectly, that letter is added to event handling.
-
 import { describe, expect, it, afterEach, beforeEach, vi } from "vitest";
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
-// import { userEvent } from '@testing-library/user-event';
 
 import App from "./App";
 
@@ -33,7 +17,7 @@ describe("N-Back Challenge App", () => {
     // const user = userEvent.setup();
 
     const input = screen.getByPlaceholderText(
-      "Enter your name or some other sentence",
+      "Enter your name or some other long word",
     );
     const button = screen.getByText("Submit");
 
@@ -58,7 +42,7 @@ describe("N-Back Challenge App", () => {
   it("should not start the game if no input has been given", async () => {
     render(<App />);
     const input = screen.getByPlaceholderText(
-      "Enter your name or some other sentence",
+      "Enter your name or some other long word",
     );
     const button = screen.getByText("Submit");
 
@@ -80,7 +64,7 @@ describe("N-Back Challenge App", () => {
     render(<App />);
 
     const input = screen.getByPlaceholderText(
-      "Enter your name or some other sentence",
+      "Enter your name or some other long word",
     );
     const button = screen.getByText("Submit");
     // TODO use userevent
@@ -120,7 +104,7 @@ describe("N-Back Challenge App", () => {
   it("runs the game and handles guesses inCorrectly", async () => {
     render(<App />);
     const input = screen.getByPlaceholderText(
-      "Enter your name or some other sentence",
+      "Enter your name or some other long word",
     );
     const button = screen.getByText("Submit");
 
@@ -182,7 +166,7 @@ describe("N-Back Challenge App", () => {
   it("runs the game and handles guesses correctly", async () => {
     render(<App />);
     const input = screen.getByPlaceholderText(
-      "Enter your name or some other sentence",
+      "Enter your name or some other long word",
     );
     const button = screen.getByText("Submit");
 

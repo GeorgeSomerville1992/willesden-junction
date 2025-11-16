@@ -13,3 +13,14 @@ Event buss- event api. Backend . this is cool
 opposed to letters or to modify the task a little
 
 // make each correspond to a letter
+
+// TODO
+
+// UI COMPATABLE
+// test voerage
+// Perhaps some form Validation
+// Go through brief agian and look
+
+// use userEvent
+Deploy
+Clear up cra..

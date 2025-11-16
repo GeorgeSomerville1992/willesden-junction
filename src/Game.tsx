@@ -6,13 +6,11 @@ type GameProps = {
 };
 
 export const Game = ({ nBack, handleGameOver }: GameProps) => {
-  // on render it sets a timer that shows one letter at the time
-
   const letters = nBack.split("");
   const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
   const [incorrectGuesses, setIncorrectGuesses] = useState(0);
   const [correctGuesses, setCorrectGuesses] = useState(0);
-  const [isCorrect, setIsCorrect] = useState<null | boolean>(null);
+  const [isCorrect, setIsCorrect] = useState(false);
   const [hasGuessed, setHasGuessed] = useState(false);
 
   useEffect(() => {
@@ -35,19 +33,12 @@ export const Game = ({ nBack, handleGameOver }: GameProps) => {
   ]);
 
   const handleGuess = () => {
-    // simulate some sort of event api ===
-    // what happened and when
     if (letters[currentLetterIndex] === letters[currentLetterIndex - 2]) {
-      // handle correct guess logic here
       setCorrectGuesses(correctGuesses + 1);
       setIsCorrect(true);
-
-      // what if they press correctly multiple times?
-      // debounce - (you clicked ot many times man)
     } else {
       setIsCorrect(false);
       setIncorrectGuesses(incorrectGuesses + 1);
-      // handle incorrect guess logic here
     }
     setHasGuessed(true);
   };
@@ -69,9 +60,3 @@ export const Game = ({ nBack, handleGameOver }: GameProps) => {
     </section>
   );
 };
-
-//  {currentLetterIndex !== null && currentLetterIndex < letters.length ? (
-//     <span className="text-5xl">{letters[currentLetterIndex]}</span>
-//   ) : (
-//     <span className="text-2xl">Get ready...</span>
-//   )}

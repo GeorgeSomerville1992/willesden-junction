@@ -12,9 +12,3 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-/* // use tailwind  */
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
