@@ -56,7 +56,7 @@ describe("N-Back Challenge App", () => {
 
     await waitFor(() => {
       expect(screen.getByText("Get Ready!")).toBeInTheDocument();
-            expect(
+      expect(
         screen.getByText("Game state changed to: getReady"),
       ).toBeInTheDocument();
     });

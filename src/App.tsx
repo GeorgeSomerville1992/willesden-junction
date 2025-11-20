@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { Game } from "./Game";
-import { GetReady } from "./GetReady";
-import { NotStarted } from "./NotStarted";
+import { Game } from "./components/Game";
+import { GetReady } from "./components/GetReady";
+import { NotStarted } from "./components/NotStarted";
 import { sendEvent } from "./server/api";
-import { Notification } from "./Notification";
+import Toastify from "toastify-js";
 import "./App.css";
 
 function App() {
@@ -11,7 +11,6 @@ function App() {
   const [gameResults, setGameResults] = useState("");
   const [gameStateKey, setGameStateKey] =
     useState<keyof typeof gameState>("notStarted");
-  const [notification, setNotification] = useState("");
 
   const handleSetGame = (name: string) => {
     setName(name);
@@ -35,19 +34,20 @@ function App() {
   };
 
   useEffect(() => {
-    if (notification) {
-      const timer = setTimeout(() => {
-        setNotification("");
-      }, 1000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [notification]);
-
-  useEffect(() => {
     if (gameStateKey && gameStateKey !== "notStarted") {
       sendEvent(`Game state changed to: ${gameStateKey}`);
-      setNotification(`Game state changed to: ${gameStateKey}`);
+      Toastify({
+        text: `Game state changed to: ${gameStateKey}`,
+        duration: 2000,
+        newWindow: true,
+        close: true,
+        gravity: "top",
+        position: "center",
+        stopOnFocus: true,
+        style: {
+          background: "linear-gradient(to right, #00b09b, #96c93d)",
+        },
+      }).showToast();
     }
   }, [gameStateKey]);
 
@@ -68,9 +68,8 @@ function App() {
   return (
     <main className="h-full flex flex-col box-border">
       <header className="grow">
-        <h1 className="text-7xl">N-Back challange</h1>
+        <h1 className="text-7xl">N-Back challenge</h1>
       </header>
-      {notification && <Notification notification={notification} />}
       {gameState[gameStateKey]()}
     </main>
   );

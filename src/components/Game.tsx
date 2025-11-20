@@ -17,7 +17,7 @@ export const Game = ({ nBack, handleGameOver }: GameProps) => {
     const interval = setInterval(() => {
       if (currentLetterIndex === letters.length - 1 || incorrectGuesses > 2) {
         handleGameOver(correctGuesses, incorrectGuesses);
-        clearInterval(interval); // stop the interval
+        clearInterval(interval);
       }
 
       setCurrentLetterIndex(currentLetterIndex + 1);
