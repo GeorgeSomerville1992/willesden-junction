@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-interface GetReadyProps {
+type GetReadyProps = {
   handleGameReady: () => void;
 }
 

@@ -34,7 +34,7 @@ function App() {
   };
 
   useEffect(() => {
-    if (gameStateKey && gameStateKey !== "notStarted") {
+    if (gameStateKey !== "notStarted") {
       sendEvent(`Game state changed to: ${gameStateKey}`);
       Toastify({
         text: `Game state changed to: ${gameStateKey}`,
@@ -52,10 +52,10 @@ function App() {
   }, [gameStateKey]);
 
   const gameState = {
-    notStarted: () => <NotStarted handleSetGame={handleSetGame} />,
-    getReady: () => <GetReady handleGameReady={handleGameReady} />,
-    started: () => <Game nBack={name} handleGameOver={handleGameOver} />,
-    finished: () => (
+    notStarted: <NotStarted handleSetGame={handleSetGame} />,
+    getReady: <GetReady handleGameReady={handleGameReady} />,
+    started: <Game nBack={name} handleGameOver={handleGameOver} />,
+    finished: (
       <>
         <p className="grow">{gameResults}</p>
         <button className="btn-primary w-full" onClick={handleReset}>
@@ -70,7 +70,7 @@ function App() {
       <header className="grow">
         <h1 className="text-7xl">N-Back challenge</h1>
       </header>
-      {gameState[gameStateKey]()}
+      {gameState[gameStateKey]}
     </main>
   );
 }
