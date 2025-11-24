@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 type GetReadyProps = {
   handleGameReady: () => void;
-}
+};
 
 export const CountDown: React.FC<GetReadyProps> = ({ handleGameReady }) => {
   const [countDown, setCountDown] = useState(3);

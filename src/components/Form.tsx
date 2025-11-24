@@ -2,11 +2,9 @@ import { useState } from "react";
 
 type NotStartedProps = {
   handleSetGame: (name: string) => void;
-}
+};
 
-export const NotStarted = ({
-  handleSetGame,
-}: NotStartedProps) => {
+export const NotStarted = ({ handleSetGame }: NotStartedProps) => {
   const [name, setName] = useState("");
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
