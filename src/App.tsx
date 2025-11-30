@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { Game } from "./components/Game";
 import { CountDown } from "./components/CountDown";
-import { NotStarted } from "./components/Form";
+import { NotStarted } from "./components/NotStarted";
 import { sendEvent } from "./server/api";
+import { Instructions } from "./components/Instructions";
 import Toastify from "toastify-js";
 import "./App.css";
 
@@ -52,7 +53,12 @@ function App() {
   }, [gameStateKey]);
 
   const gameState = {
-    notStarted: <NotStarted handleSetGame={handleSetGame} />,
+    notStarted: (
+      <>
+        <Instructions />
+        <NotStarted handleSetGame={handleSetGame} />
+      </>
+    ),
     countDown: <CountDown handleGameReady={handleGameReady} />,
     started: <Game gameString={name} handleGameOver={handleGameOver} />,
     finished: (
@@ -66,11 +72,15 @@ function App() {
   };
 
   return (
-    <main className="h-full flex flex-col box-border">
-      <header className="grow">
-        <h1 className="text-7xl">N-Back challenge</h1>
+    <main className="h-full flex flex-col box-border dark">
+      <header>
+        <nav className="nav">
+          <h1 className="">N-Back challenge</h1>
+        </nav>
       </header>
-      {gameState[gameStateKey]}
+      <div className="game-container sm:max-w-2x flex flex-col justify-between h-full">
+        {gameState[gameStateKey]}
+      </div>
     </main>
   );
 }

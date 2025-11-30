@@ -24,10 +24,8 @@ describe("N-Back Challenge App", () => {
 
   it("should not start the game if no input has been given", async () => {
     render(<App />);
-    const input = screen.getByPlaceholderText(
-      "Enter your name or some other long word",
-    );
-    const button = screen.getByText("Submit");
+    const input = screen.getByPlaceholderText("Enter your name here");
+    const button = screen.getByText("Start");
 
     // Simulate user input with less than 5 characters
     fireEvent.change(input, { target: { value: "" } });
@@ -45,10 +43,8 @@ describe("N-Back Challenge App", () => {
     vi.useFakeTimers();
     render(<App />);
 
-    const input = screen.getByPlaceholderText(
-      "Enter your name or some other long word",
-    );
-    const button = screen.getByText("Submit");
+    const input = screen.getByPlaceholderText("Enter your name here");
+    const button = screen.getByText("Start");
     // TODO use userevent
     fireEvent.change(input, { target: { value: "ABCDE" } });
     expect((input as HTMLInputElement).value).toBe("ABCDE");
@@ -86,10 +82,8 @@ describe("N-Back Challenge App", () => {
 
   it("runs the game and handles guesses inCorrectly", async () => {
     render(<App />);
-    const input = screen.getByPlaceholderText(
-      "Enter your name or some other long word",
-    );
-    const button = screen.getByText("Submit");
+    const input = screen.getByPlaceholderText("Enter your name here");
+    const button = screen.getByText("Start");
 
     fireEvent.change(input, { target: { value: "ABCDE" } });
     fireEvent.click(button);
@@ -145,10 +139,8 @@ describe("N-Back Challenge App", () => {
 
   it("runs the game and handles guesses correctly", async () => {
     render(<App />);
-    const input = screen.getByPlaceholderText(
-      "Enter your name or some other long word",
-    );
-    const button = screen.getByText("Submit");
+    const input = screen.getByPlaceholderText("Enter your name here");
+    const button = screen.getByText("Start");
 
     fireEvent.change(input, { target: { value: "ABAB" } });
     fireEvent.click(button);
@@ -197,7 +189,7 @@ describe("N-Back Challenge App", () => {
 
     screen.getByRole("button", { name: "Reset" }).click();
     await waitFor(() => {
-      expect(screen.getByText("Submit")).toBeInTheDocument();
+      expect(screen.getByText("Start")).toBeInTheDocument();
     });
   });
 });
