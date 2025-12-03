@@ -55,7 +55,9 @@ export const Game = ({ gameString, handleGameOver }: GameProps) => {
   return (
     <section className="grow flex content-space flex-col">
       {currentLetterIndex !== null && currentLetterIndex < letters.length && (
-        <span className="text-7xl flex-grow content-center">{letters[currentLetterIndex]}</span>
+        <h2 className="text-7xl flex-grow content-center">
+          {letters[currentLetterIndex]}
+        </h2>
       )}
       {hasGuessed && <div>{isCorrect ? "Correct!" : "Incorrect!"}</div>}
       {isGuessButtonVisible && (
