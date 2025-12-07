@@ -2,12 +2,18 @@ import { useState } from "react";
 import { FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 
 type NotStartedProps = {
   handleSetGame: (name: string) => void;
+  handleDisableAnalytics?: (disabled: boolean) => void;
 };
 
-export const NotStarted = ({ handleSetGame }: NotStartedProps) => {
+export const NotStarted = ({
+  handleSetGame,
+  handleDisableAnalytics,
+}: NotStartedProps) => {
   const [name, setName] = useState("");
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,6 +38,13 @@ export const NotStarted = ({ handleSetGame }: NotStartedProps) => {
           />
         </FieldGroup>
       </FieldSet>
+      <div className="flex items-center space-x-2 mt-2">
+        <Switch
+          id="disable-analytics"
+          onCheckedChange={handleDisableAnalytics}
+        />
+        <Label htmlFor="disable-analytics">Disable Analytics</Label>
+      </div>
       <Button
         variant="outline"
         type="submit"

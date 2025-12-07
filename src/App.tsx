@@ -9,6 +9,7 @@ import Toastify from "toastify-js";
 import "./App.css";
 
 function App() {
+  const [disableAnalytics, setDisableAnalytics] = useState(false);
   const [gameString, setGameString] = useState("");
   const [gameResults, setGameResults] = useState("");
   const [gameStateKey, setGameStateKey] =
@@ -35,23 +36,9 @@ function App() {
     setGameStateKey("notStarted");
   };
 
-  useEffect(() => {
-    if (gameStateKey !== "notStarted") {
-      sendEvent(`Game ${gameState[gameStateKey].message}`);
-      Toastify({
-        text: `Game: ${gameState[gameStateKey].message}`,
-        duration: 2000,
-        newWindow: true,
-        close: true,
-        gravity: "bottom",
-        position: "right",
-        stopOnFocus: true,
-        style: {
-          background: "linear-gradient(to right, #d4c0d9, #a982b4)",
-        },
-      }).showToast();
-    }
-  }, [gameStateKey]);
+  const handleDisableAnalytics = (disabled: boolean) => {
+    setDisableAnalytics(disabled);
+  };
 
   const gameState = {
     notStarted: {
@@ -59,7 +46,10 @@ function App() {
       component: (
         <>
           <Instructions />
-          <NotStarted handleSetGame={handleSetGame} />
+          <NotStarted
+            handleSetGame={handleSetGame}
+            handleDisableAnalytics={handleDisableAnalytics}
+          />
         </>
       ),
     },
@@ -85,6 +75,24 @@ function App() {
       ),
     },
   };
+
+  useEffect(() => {
+    if (gameStateKey !== "notStarted" && !disableAnalytics) {
+      sendEvent(`Game ${gameState[gameStateKey].message}`);
+      Toastify({
+        text: `Game: ${gameState[gameStateKey].message}`,
+        duration: 2000,
+        newWindow: true,
+        close: true,
+        gravity: "bottom",
+        position: "right",
+        stopOnFocus: true,
+        style: {
+          background: "linear-gradient(to right, #d4c0d9, #a982b4)",
+        },
+      }).showToast();
+    }
+  }, [gameStateKey, disableAnalytics]);
 
   return (
     <main className="h-full flex flex-col box-border dark">
