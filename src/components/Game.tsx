@@ -8,10 +8,7 @@ type GameProps = {
 
 export const Game = ({ gameString, handleGameOver }: GameProps) => {
   const gameStringArray = gameString.split("");
-  console.log("gameStringArray:", gameStringArray);
   const letters = shuffleArray(gameStringArray);
-  console.log("Shuffled Letters:", letters);
-  // const letters = gameString.split("");
 
   const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
   const [incorrectGuesses, setIncorrectGuesses] = useState(0);
@@ -55,7 +52,7 @@ export const Game = ({ gameString, handleGameOver }: GameProps) => {
   return (
     <section className="grow flex content-space flex-col">
       {currentLetterIndex !== null && currentLetterIndex < letters.length && (
-        <h2 className="text-7xl flex-grow content-center">
+        <h2 className="text-[128px] flex-grow content-center">
           {letters[currentLetterIndex]}
         </h2>
       )}

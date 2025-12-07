@@ -37,39 +37,53 @@ function App() {
 
   useEffect(() => {
     if (gameStateKey !== "notStarted") {
-      sendEvent(`Game state changed to: ${gameStateKey}`);
+      sendEvent(`Game ${gameState[gameStateKey].message}`);
       Toastify({
-        text: `Game state changed to: ${gameStateKey}`,
+        text: `Game: ${gameState[gameStateKey].message}`,
         duration: 2000,
         newWindow: true,
         close: true,
-        gravity: "top",
-        position: "center",
+        gravity: "bottom",
+        position: "right",
         stopOnFocus: true,
         style: {
-          background: "linear-gradient(to right, #00b09b, #96c93d)",
+          background: "linear-gradient(to right, #d4c0d9, #a982b4)",
         },
       }).showToast();
     }
   }, [gameStateKey]);
 
   const gameState = {
-    notStarted: (
-      <>
-        <Instructions />
-        <NotStarted handleSetGame={handleSetGame} />
-      </>
-    ),
-    countDown: <CountDown handleGameReady={handleGameReady} />,
-    started: <Game gameString={gameString} handleGameOver={handleGameOver} />,
-    finished: (
-      <>
-        <p className="grow content-center">{gameResults}</p>
-        <button className="btn-primary w-full" onClick={handleReset}>
-          Reset
-        </button>
-      </>
-    ),
+    notStarted: {
+      message: "",
+      component: (
+        <>
+          <Instructions />
+          <NotStarted handleSetGame={handleSetGame} />
+        </>
+      ),
+    },
+    countDown: {
+      message: "Starting Soon...",
+      component: <CountDown handleGameReady={handleGameReady} />,
+    },
+    started: {
+      message: "Started",
+      component: (
+        <Game gameString={gameString} handleGameOver={handleGameOver} />
+      ),
+    },
+    finished: {
+      message: "Finished",
+      component: (
+        <>
+          <h2 className="grow content-center">{gameResults}</h2>
+          <button onClick={handleReset} className="btn btn-primary mt-4">
+            Reset
+          </button>
+        </>
+      ),
+    },
   };
 
   return (
@@ -80,7 +94,7 @@ function App() {
         </nav>
       </header>
       <div className="game-container sm:max-w-2x flex flex-col justify-between h-full">
-        {gameState[gameStateKey]}
+        {gameState[gameStateKey].component}
       </div>
     </main>
   );
